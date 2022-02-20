@@ -1,3 +1,4 @@
+# Guessing Game // Угадайка
 import random
 
 print('Добро пожаловать в числовую угадайку')
