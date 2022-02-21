@@ -1,0 +1,39 @@
+# Ceasar Bruteforce // Грубая сила Цезаря
+
+en_upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' # 26
+en_lower = 'abcdefghijklmnopqrstuvwxyz'
+en_len = 26
+ru_upper = 'АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ' # 32
+ru_lower = 'абвгдежзийклмнопрстуфхцчшщъыьэюя'
+ru_len = 32
+symbols = '!#$%&*+-=?@^_ ,.()[]{}'
+
+
+def bruteforce(l):
+    upper = en_upper
+    lower = en_lower
+    al_len = en_len
+    k = l
+    #print('Какую фразу вы хотите расшифровать?')
+    s = 'Hawnj pk swhg xabkna ukq nqj.'
+    s_decrypted = ''
+    for i in range(len(s)):
+        if s[i].isupper():
+            if upper.find(s[i]) - k >= al_len:
+                s_decrypted += upper[upper.find(s[i]) - k + al_len]
+            else:
+                s_decrypted += upper[upper.find(s[i]) - k]
+        if s[i].islower():
+            if lower.find(s[i]) - k >= al_len:
+                s_decrypted += lower[lower.find(s[i]) - k + al_len]
+            else:
+                s_decrypted += lower[lower.find(s[i]) - k]
+        if s[i] in symbols:
+            s_decrypted += s[i]
+    print(s_decrypted)
+    return
+
+
+for i in range(en_len):
+    print(i, end=' ')
+    bruteforce(i)
