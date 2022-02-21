@@ -1,0 +1,111 @@
+# Caesar cipher // Шифр Цезаря
+def is_valid(n): # проверка введено цифровое значение или нет
+    if n.isdigit() and int(n) >= 1:
+        return True
+    else:
+        print('Вы ввели нецифровое значение, попробуйте снова: ')
+        return False
+
+def option(answ): #проверка да/нет
+    answ_y = ['Да', 'да', 'д', 'ДА', 'Yes', 'yes', 'y', 'YES', 'lf', 'l', '+']
+    if answ in answ_y:
+        return True
+    else:
+        return False
+
+en_upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' # 26
+en_lower = 'abcdefghijklmnopqrstuvwxyz'
+en_len = 26
+ru_upper = 'АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ' # 32
+ru_lower = 'абвгдежзийклмнопрстуфхцчшщъыьэюя'
+ru_len = 32
+symbols = '!#$%&*+-=?@^_ ,.()[]{}'
+
+def language():
+    print('На каком языке будем это делать?')
+    lang_en = ['en', 'EN', 'eng', 'e', 'E']
+    lang_ru = ['ru', 'RU', 'rus', 'r', 'R']
+    while True:
+        lang = input('Введите язык - en/ru: ')
+        if lang in lang_en:
+            print('Выбран английский язык.')
+            return en_upper, en_lower, en_len
+        elif lang in lang_ru:
+            print('Выбран русский язык.')
+            return ru_upper, ru_lower, ru_len
+        else:
+            print('Не понимаю введенный текст, попробуйте еще раз')
+
+
+def cryp_decryp():
+    print('Здравствуйте, Вы хотите провести шифровку или дешифровку?')
+    cryp = ['C', 'c', 'Ш', 'ш', 'i']
+    decryp = ['D', 'd', 'д', 'д', 'l']
+    while True:
+        action = input('Введите Ш/Д: ')
+        if action in cryp:
+            return cryption()
+        elif action in decryp:
+            return decryption()
+        else:
+            print('Не понимаю введенный текст, попробуйте еще раз')
+
+def key():
+    print('Какой шаг сдвига? Введите натуральное число: ')
+    step = input()
+    if is_valid(step) == True:
+        return int(step)
+
+
+def cryption():
+    lang = language()
+    upper = lang[0]
+    lower = lang[1]
+    al_len = lang[2]
+    k = key()
+    print('Какую фразу вы хотите зашифровать?')
+    s = input()
+    s_crypted = ''
+    for i in range(len(s)):
+        if s[i].isupper():
+            if upper.find(s[i]) + k >= al_len:
+                s_crypted += upper[upper.find(s[i]) + k - al_len]
+            else:
+                s_crypted += upper[upper.find(s[i]) + k]
+        if s[i].islower():
+            if lower.find(s[i]) + k >= al_len:
+                s_crypted += lower[lower.find(s[i]) + k - al_len]
+            else:
+                s_crypted += lower[lower.find(s[i]) + k]
+        if s[i] in symbols:
+            s_crypted += s[i]
+    print(s_crypted)
+    return
+
+def decryption():
+    lang = language()
+    upper = lang[0]
+    lower = lang[1]
+    al_len = lang[2]
+    k = key()
+    print('Какую фразу вы хотите расшифровать?')
+    s = input()
+    s_decrypted = ''
+    for i in range(len(s)):
+        if s[i].isupper():
+            if upper.find(s[i]) - k >= al_len:
+                s_decrypted += upper[upper.find(s[i]) - k + al_len]
+            else:
+                s_decrypted += upper[upper.find(s[i]) - k]
+        if s[i].islower():
+            if lower.find(s[i]) - k >= al_len:
+                s_decrypted += lower[lower.find(s[i]) - k + al_len]
+            else:
+                s_decrypted += lower[lower.find(s[i]) - k]
+        if s[i] in symbols:
+            s_decrypted += s[i]
+    print(s_decrypted)
+    return
+
+
+cryp_decryp()
